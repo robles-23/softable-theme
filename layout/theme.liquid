@@ -35,9 +35,14 @@
   {{ 'animations.css' | asset_url | stylesheet_tag }}
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+  {% render 'head-tag' %}
 </head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+
+  {% sections 'header-group' %}
+  {% render 'body-start-tag' %}
   
   {% section 'header' %}
 
@@ -46,6 +51,9 @@
   </main>
 
   {% section 'footer' %}
+
+  {% sections 'footer-group' %}
+  {% render 'body-end-tag' %}
 
   <ul hidden>
     <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
