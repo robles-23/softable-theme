@@ -1,0 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "transparent_header": true
+        }
+      },
+      "hero-home": {
+        "type": "hero-home",
+        "settings": {
+          "heading": "Tu oficina, donde tú quieras.",
+          "subheading": "Libérate del escritorio. Encuentra la comodidad ergonómica perfecta para trabajar.",
+          "cta_text": "Comprar ahora",
+          "cta_link": "",
+          "cta_text_secondary": "Ver más",
+          "cta_link_secondary": "",
+          "show_trust_badges": true,
+          "badge_1_text": "Calidad Premium",
+          "badge_2_text": "Envío Gratis",
+          "badge_3_text": "+1000 Clientes"
+        }
+      },
+      "features": {
+        "type": "features",
+        "settings": {
+          "heading": "Diseñado para tu comodidad",
+          "subheading": "Cada detalle pensado para mejorar tu experiencia de trabajo"
+        }
+      },
+      "product-showcase": {
+        "type": "product-showcase",
+        "settings": {
+          "product": "",
+          "show_badge": true,
+          "badge_text": "Best Seller",
+          "cta_text": "Añadir al carrito",
+          "show_usps": true
+        }
+      },
+      "benefits": {
+        "type": "benefits",
+        "settings": {
+          "heading": "Por qué elegir Softable",
+          "subheading": "La solución perfecta para trabajar desde cualquier lugar",
+          "cta_text": "",
+          "cta_link": ""
+        }
+      },
+      "testimonials": {
+        "type": "testimonials",
+        "settings": {
+          "heading": "Lo que dicen nuestros clientes",
+          "subheading": ""
+        }
+      },
+      "cta-section": {
+        "type": "cta-section",
+        "settings": {
+          "heading": "¿Listo para trabajar desde donde quieras?",
+          "subheading": "Únete a miles de profesionales que ya han mejorado su forma de trabajar.",
+          "cta_text": "Comprar ahora",
+          "cta_link": "",
+          "cta_text_secondary": "Saber más",
+          "cta_link_secondary": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Get Comfy, Work Better.",
+          "show_social": true,
+          "social_instagram": "",
+          "social_facebook": "",
+          "social_twitter": "",
+          "show_newsletter": true,
+          "newsletter_heading": "Únete a nuestra comunidad",
+          "newsletter_text": "Recibe ofertas exclusivas y novedades",
+          "show_payment_icons": true
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "16706268198842840686": {
+        "type": "shopify://apps/sternify/blocks/reset_css/fcc6e879-7d9e-4924-b387-68cfab68cec6",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}
