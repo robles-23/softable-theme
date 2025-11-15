@@ -1,0 +1,100 @@
+{% liquid
+  assign transparent_header = false
+  if template == 'index'
+    assign transparent_header = section.settings.transparent_header
+  endif
+%}
+
+<header class="header{% if transparent_header %} header--transparent{% endif %}" data-section-id="{{ section.id }}" data-section-type="header">
+  <div class="header__wrapper">
+    <div class="header__container container">
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="header__mobile-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo -->
+      <div class="header__logo">
+        {% if section.settings.logo %}
+          <a href="{{ routes.root_url }}" class="header__logo-link">
+            <img src="{{ section.settings.logo | img_url: '200x' }}" 
+                 alt="{{ shop.name }}"
+                 loading="lazy"
+                 width="150">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="header__logo-text">
+            <span class="h3">{{ shop.name }}</span>
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Navigation -->
+      <nav class="header__nav" role="navigation">
+        <ul class="header__nav-list">
+          {% for link in section.settings.menu.links %}
+            <li class="header__nav-item">
+              <a href="{{ link.url }}" class="header__nav-link">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <!-- Cart Icon -->
+      <div class="header__icons">
+        <a href="{{ routes.cart_url }}" class="header__cart-link" aria-label="Cart">
+          <svg class="icon icon--cart" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 2L7.17 4H3C1.9 4 1 4.9 1 6V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V6C23 4.9 22.1 4 21 4H16.83L15 2H9ZM12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7Z" fill="currentColor"/>
+          </svg>
+          <span class="header__cart-count" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="header__mobile-menu">
+    <nav class="mobile-menu" role="navigation">
+      <ul class="mobile-menu__list">
+        {% for link in section.settings.menu.links %}
+          <li class="mobile-menu__item">
+            <a href="{{ link.url }}" class="mobile-menu__link">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_header",
+      "label": "Transparent header on homepage",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

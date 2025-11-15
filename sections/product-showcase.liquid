@@ -1,0 +1,180 @@
+<section class="product-showcase" data-section-id="{{ section.id }}" data-section-type="product-showcase">
+  <div class="product-showcase__container container">
+    
+    {% if section.settings.product %}
+      {% assign product = all_products[section.settings.product] %}
+      
+      <div class="product-showcase__grid">
+        
+        <!-- Product Images -->
+        <div class="product-showcase__images" data-aos="fade-right">
+          <div class="product-showcase__main-image">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '800x' }}" 
+                   alt="{{ product.title }}"
+                   loading="lazy"
+                   class="product-showcase__img">
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          
+          {% if product.images.size > 1 %}
+            <div class="product-showcase__thumbnails">
+              {% for image in product.images limit: 4 %}
+                <button class="product-showcase__thumbnail{% if forloop.first %} active{% endif %}" 
+                        data-image-index="{{ forloop.index0 }}">
+                  <img src="{{ image | img_url: '150x' }}" alt="{{ product.title }}">
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-showcase__info" data-aos="fade-left">
+          <div class="product-showcase__content">
+            
+            {% if section.settings.show_badge and section.settings.badge_text != blank %}
+              <span class="product-showcase__badge">{{ section.settings.badge_text }}</span>
+            {% endif %}
+
+            <h2 class="product-showcase__title h2">{{ product.title }}</h2>
+            
+            <div class="product-showcase__price">
+              {% if product.compare_at_price > product.price %}
+                <span class="product-showcase__price-compare">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="product-showcase__price-current">{{ product.price | money }}</span>
+            </div>
+
+            <div class="product-showcase__description rte">
+              {{ product.description }}
+            </div>
+
+            <!-- Variant Selector (if applicable) -->
+            {% unless product.has_only_default_variant %}
+              <div class="product-showcase__variants">
+                {% for option in product.options_with_values %}
+                  <div class="product-option">
+                    <label class="product-option__label">{{ option.name }}</label>
+                    <div class="product-option__values">
+                      {% for value in option.values %}
+                        <button class="product-option__value{% if forloop.first %} active{% endif %}" 
+                                data-option-value="{{ value }}">
+                          {{ value }}
+                        </button>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endunless %}
+
+            <!-- Add to Cart Form -->
+            <form action="{{ routes.cart_add_url }}" method="post" class="product-showcase__form">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              
+              <div class="product-showcase__quantity">
+                <label for="quantity">Cantidad:</label>
+                <div class="quantity-selector">
+                  <button type="button" class="quantity-selector__btn" data-quantity-minus>-</button>
+                  <input type="number" 
+                         id="quantity" 
+                         name="quantity" 
+                         value="1" 
+                         min="1"
+                         class="quantity-selector__input">
+                  <button type="button" class="quantity-selector__btn" data-quantity-plus>+</button>
+                </div>
+              </div>
+
+              <button type="submit" 
+                      class="btn btn--primary btn--large btn--full-width"
+                      {% unless product.available %}disabled{% endunless %}>
+                {% if product.available %}
+                  {{ section.settings.cta_text }}
+                {% else %}
+                  Agotado
+                {% endif %}
+              </button>
+            </form>
+
+            <!-- USPs -->
+            {% if section.settings.show_usps %}
+              <div class="product-showcase__usps">
+                <div class="usp-item">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 0L12.09 6.26L19 7.27L14 12.14L15.18 19.02L10 15.77L4.82 19.02L6 12.14L1 7.27L7.91 6.26L10 0Z" fill="#5c899d"/>
+                  </svg>
+                  <span>Envío gratis en 24-48h</span>
+                </div>
+                <div class="usp-item">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 0L1 4V10C1 15.55 4.84 20.74 10 22C15.16 20.74 19 15.55 19 10V4L10 0Z" fill="#5c899d"/>
+                  </svg>
+                  <span>Garantía de 2 años</span>
+                </div>
+                <div class="usp-item">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M8 16L3 11L4.5 9.5L8 13L15.5 5.5L17 7L8 16Z" fill="#5c899d"/>
+                  </svg>
+                  <span>Devolución en 30 días</span>
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+      </div>
+    {% else %}
+      <div class="product-showcase__empty">
+        <p>Selecciona un producto en la configuración de esta sección</p>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Showcase",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Best Seller"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Add to Cart Button Text",
+      "default": "Añadir al carrito"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_usps",
+      "label": "Show USPs",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase"
+    }
+  ]
+}
+{% endschema %}

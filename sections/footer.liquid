@@ -1,0 +1,178 @@
+<footer class="footer" data-section-id="{{ section.id }}" data-section-type="footer">
+  <div class="footer__container container">
+    <div class="footer__grid">
+      
+      <!-- Brand Column -->
+      <div class="footer__brand">
+        <h3 class="footer__logo h4">{{ shop.name }}</h3>
+        <p class="footer__tagline">{{ section.settings.tagline }}</p>
+        
+        {% if section.settings.show_social %}
+          <div class="footer__social">
+            {% if section.settings.social_instagram != blank %}
+              <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C17.49 10.25 17.49 13.75 16.64 15.2C16.21 16.02 15.52 16.71 14.7 17.14C13.25 17.99 9.75 17.99 8.3 17.14C7.48 16.71 6.79 16.02 6.36 15.2C5.51 13.75 5.51 10.25 6.36 8.8C6.79 7.98 7.48 7.29 8.3 6.86C9.75 6.01 13.25 6.01 14.7 6.86C15.52 7.29 16.21 7.98 16.64 8.8Z"/>
+                  <path d="M12 15C13.657 15 15 13.657 15 12C15 10.343 13.657 9 12 9C10.343 9 9 10.343 9 12C9 13.657 10.343 15 12 15Z"/>
+                </svg>
+              </a>
+            {% endif %}
+            
+            {% if section.settings.social_facebook != blank %}
+              <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM14.5 12.5H13V19H10.5V12.5H9V10.5H10.5V9C10.5 7.62 11.12 6.5 13 6.5H15V8.5H13.5C13.22 8.5 13 8.72 13 9V10.5H15L14.5 12.5Z"/>
+                </svg>
+              </a>
+            {% endif %}
+
+            {% if section.settings.social_twitter != blank %}
+              <a href="{{ section.settings.social_twitter }}" target="_blank" rel="noopener" aria-label="Twitter">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.46 6C21.69 6.35 20.86 6.58 20 6.69C20.88 6.16 21.56 5.32 21.88 4.31C21.05 4.81 20.13 5.16 19.16 5.36C18.37 4.5 17.26 4 16 4C13.65 4 11.73 5.92 11.73 8.29C11.73 8.63 11.77 8.96 11.84 9.27C8.28 9.09 5.11 7.38 3 4.79C2.63 5.42 2.42 6.16 2.42 6.94C2.42 8.43 3.17 9.75 4.33 10.5C3.62 10.5 2.96 10.3 2.38 10C2.38 10 2.38 10 2.38 10.03C2.38 12.11 3.86 13.85 5.82 14.24C5.46 14.34 5.08 14.39 4.69 14.39C4.42 14.39 4.15 14.36 3.89 14.31C4.43 16 6 17.26 7.89 17.29C6.43 18.45 4.58 19.13 2.56 19.13C2.22 19.13 1.88 19.11 1.54 19.07C3.44 20.29 5.70 21 8.12 21C16 21 20.33 14.46 20.33 8.79C20.33 8.6 20.33 8.42 20.32 8.23C21.16 7.63 21.88 6.87 22.46 6Z"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Menu Columns -->
+      {% for block in section.blocks %}
+        {% if block.type == 'menu' %}
+          <div class="footer__menu" {{ block.shopify_attributes }}>
+            <h4 class="footer__menu-title h5">{{ block.settings.heading }}</h4>
+            {% if block.settings.menu != blank %}
+              <ul class="footer__menu-list">
+                {% for link in linklists[block.settings.menu].links %}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <!-- Newsletter -->
+      {% if section.settings.show_newsletter %}
+        <div class="footer__newsletter">
+          <h4 class="footer__newsletter-title h5">{{ section.settings.newsletter_heading }}</h4>
+          <p class="footer__newsletter-text">{{ section.settings.newsletter_text }}</p>
+          <form action="/contact#newsletter" method="post" class="footer__newsletter-form">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="email" 
+                   name="contact[email]" 
+                   placeholder="Tu email" 
+                   required
+                   class="footer__newsletter-input">
+            <button type="submit" class="btn btn--primary">Suscribirse</button>
+          </form>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.
+      </p>
+      <div class="footer__payment">
+        {% if section.settings.show_payment_icons %}
+          <span>Pagos seguros:</span>
+          <svg width="40" height="25" viewBox="0 0 40 25"><rect fill="#1434CB" width="40" height="25" rx="3"/><path fill="#fff" d="M15 8h2l-1.5 9H14L15 8zm7.5 5.8l1-3.2.6 3.2h-1.6zm2.4 3.2h1.8L26 8h-1.6c-.4 0-.7.2-.8.5l-2.8 6.5h2l.4-1.1h2.5l.2 1.1zM19.4 13c0-.9-.6-1.4-1.8-1.7-.7-.2-1.1-.4-1.1-.7 0-.3.3-.5.9-.5.5 0 .9.1 1.2.2l.1.1.2-1.3c-.3-.1-.8-.2-1.4-.2-2 0-3.4 1-3.4 2.5 0 1.1.9 1.6 1.7 2 .8.3 1.1.6 1.1.9 0 .5-.6.7-1.1.7-.7 0-1.1-.1-1.7-.4l-.2-.1-.2 1.4c.4.2 1.1.3 1.8.3 2.1.1 3.5-.9 3.5-2.5zm7.7-5h-1.5L24 16h2l.8-2h2.6l.3 2h1.8l-1.5-8h-1.5c-.5 0-.9.3-1 .7l-2.9 6.3z"/></svg>
+          <svg width="40" height="25" viewBox="0 0 40 25"><rect fill="#000" width="40" height="25" rx="3"/><circle fill="#EB001B" cx="15" cy="12.5" r="6"/><circle fill="#F79E1B" cx="25" cy="12.5" r="6"/><path fill="#FF5F00" d="M20 7.5c-1.3 1.2-2 2.9-2 5s.7 3.8 2 5c1.3-1.2 2-2.9 2-5s-.7-3.8-2-5z"/></svg>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Get Comfy, Work Better."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show Social Media",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "Únete a nuestra comunidad"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Recibe ofertas exclusivas y novedades"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show Payment Icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

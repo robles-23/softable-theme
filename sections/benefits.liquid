@@ -1,0 +1,133 @@
+<section class="benefits" data-section-id="{{ section.id }}" data-section-type="benefits">
+  <div class="benefits__container container">
+    <div class="benefits__grid">
+      
+      <!-- Image Side -->
+      <div class="benefits__image" data-aos="fade-right">
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | img_url: '800x' }}" 
+               alt="{{ section.settings.heading }}"
+               loading="lazy"
+               class="benefits__img">
+        {% else %}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+
+      <!-- Content Side -->
+      <div class="benefits__content" data-aos="fade-left">
+        <h2 class="benefits__title h2">{{ section.settings.heading }}</h2>
+        <p class="benefits__subtitle">{{ section.settings.subheading }}</p>
+        
+        <div class="benefits__list">
+          {% for block in section.blocks %}
+            {% if block.type == 'benefit' %}
+              <div class="benefit-item" {{ block.shopify_attributes }}>
+                <div class="benefit-item__icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="#5c899d" stroke-width="2"/>
+                    <path d="M8 12L11 15L16 9" stroke="#5c899d" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="benefit-item__content">
+                  <h3 class="benefit-item__title h5">{{ block.settings.title }}</h3>
+                  <p class="benefit-item__description">{{ block.settings.description }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if section.settings.cta_text != blank %}
+          <a href="{{ section.settings.cta_link }}" class="btn btn--primary">
+            {{ section.settings.cta_text }}
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Por qué elegir Softable"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "La solución perfecta para trabajar desde cualquier lugar"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Beneficio"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Descripción del beneficio"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Portátil y ligero",
+            "description": "Llévalo contigo donde quieras sin esfuerzo"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Mejora tu postura",
+            "description": "Reduce el dolor de espalda y cuello"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Máxima productividad",
+            "description": "Trabaja cómodamente desde cualquier lugar"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

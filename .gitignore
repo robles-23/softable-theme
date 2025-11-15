@@ -1,0 +1,30 @@
+# Shopify
+config/settings_data.json
+.shopify-cli.yml
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
